@@ -2,9 +2,6 @@
 #include <windows.h>
 using namespace std;
 
-#define y true;
-#define t false;
-
 typedef struct dataRoti typeinfo;
 struct dataRoti{
 	int kode;	// kode roti
@@ -24,8 +21,9 @@ void pegawai(), pembeli();
 int main(){
 	bukaToko();	//settingan awal, roti masih kosong
 	
-	bool menu=t;
+	bool ulang=false;
 	do{
+		//system("cls");
 		int pilihan;
 		cout<<"--- MENU UTAMA ---\n";
 		cout<<"1. Pegawai\n";
@@ -38,9 +36,13 @@ int main(){
 			case 2 : pembeli(); break;
 			default: cout<<"Pilihan tidak tersedia. Pilih lagi\n";
 		}
+
+		char pilih;
+		cout<<"Kembali ke MENU UTAMA? (y/t) "; cin>>pilih;
+		if((pilih=='y')||(pilih=='Y')) ulang=true;
+		else if((pilih=='t')||(pilih=='T')) ulang=false;
 		
-		cout<<"Kembali ke MENU UTAMA? (y/t) "; cin>>menu;
-	} while(menu);
+	} while(ulang);
 }
 
 void bukaToko(){
@@ -55,9 +57,9 @@ void bukaToko(){
 	akhir=list;
 	
 	//sisip linked list
-	//sisipRoti("Roti Cokelat",1);
-	//sisipRoti("Roti Susu",2);
-	//sisipRoti("Roti Keju",3);
+	sisipRoti("Roti Cokelat",1);
+	sisipRoti("Roti Susu",2);
+	sisipRoti("Roti Keju",3);
 }
 
 void sisipRoti(string namaRoti, int kodeRoti){
@@ -79,6 +81,16 @@ void sisipRoti(string namaRoti, int kodeRoti){
 
 void pegawai(){
 	//tampil stok roti
+	typeptr bantu;
+	bantu=awal;
+	while(bantu!=NULL){
+		cout<<bantu->info.kode <<". ";
+		cout<<bantu->info.nama <<endl;
+		for(int i=0; i<10; i++)
+			cout<<bantu->info.masa[i] <<endl;
+		bantu=bantu->next;
+	}
+	
 	//tampil input nyetok roti & box
 	int pilihan;
 	cout<<"1. Tambah stok roti\n";
